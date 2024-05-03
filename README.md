@@ -33,3 +33,5 @@ npm run build
 ```sh
 npm run lint
 ```
+### How to run api server
+npx json-server db.json
