@@ -35,6 +35,7 @@ import { ref, computed } from 'vue';
 import axios from 'axios';
 import { useUserStore, useUserFlagStore, useFeedbackList } from '@/stores/counter';
 import feedbackList from './feedBackList.vue'
+import useApi from '../useApi';
 
 export default {
     components: {
@@ -55,25 +56,20 @@ export default {
                     userId: userStore.userData.userId
                 });
                 feedback.value = '';
+                const { fetchFeedback, result } = useApi();
                 fetchFeedback(userStore.userData.userId)
+                userFeedbackList.storeUserFeedback(result)
             } catch (error) {
                 console.error('Error submitting feedback:', error);
             }
 
 
         };
-        const fetchFeedback = async (id) => {
-            try {
-                const response = await axios.get('http://localhost:3000/posts?userId=' + id);
-                userFeedbackList.storeUserFeedback(response.data)
-            } catch (error) {
-                console.error('Error fetching feedback:', error);
-            }
-        };
+
         const userStoreVal = computed(() => {
             return userStore
         })
-        return { feedback, submitFeedback, userData: userStore.userData, userFlagStore, userStoreVal, fetchFeedback, userFeedbackList };
+        return { feedback, submitFeedback, userData: userStore.userData, userFlagStore, userStoreVal, userFeedbackList };
     }
 };
 </script>

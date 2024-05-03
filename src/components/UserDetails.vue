@@ -25,9 +25,9 @@
   
 <script>
 import { useUserStore, useUserFlagStore, useFeedbackList } from '@/stores/counter';
-import axios from 'axios';
 import { ref, computed, onMounted } from 'vue';
 import AddFeedback from './AddFeedback.vue';
+import useApi from '../useApi';
 export default {
   components: {
     AddFeedback
@@ -48,21 +48,14 @@ export default {
       userStoreFlag.storeUserData1(showData.value);
       const userData = data
       userStore.storeUserData(userData)
-      fetchFeedback(userData.userId)
       selectedId.value = data.userId
+      const { fetchFeedback, result } = useApi();
+      fetchFeedback(data.userId)
+      userFeedbackList.storeUserFeedback(result)
     }
     const userStoreVal = computed(() => {
       return userStore
     })
-
-    const fetchFeedback = async (id) => {
-      try {
-        const response = await axios.get('http://localhost:3000/posts?userId=' + id);
-        userFeedbackList.storeUserFeedback(response.data)
-      } catch (error) {
-        console.error('Error fetching feedback:', error);
-      }
-    };
     onMounted(() => {
       storeUserDetail(items.value[0])
       selectedId.value = items.value[0].userId

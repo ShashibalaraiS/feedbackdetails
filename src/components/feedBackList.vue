@@ -31,14 +31,6 @@ export default {
         const userStoreVal = computed(() => {
             return userStore
         })
-        // const fetchFeedback = async () => {
-        //     try {
-        //         const response = await axios.get('http://localhost:3000/posts?userId=' + userStoreVal.value.userData.userId);
-        //         feedbackList.value = response.data;
-        //     } catch (error) {
-        //         console.error('Error fetching feedback:', error);
-        //     }
-        // };
         const feedBackList = computed(() => {
             return userFeedBackList
         })
