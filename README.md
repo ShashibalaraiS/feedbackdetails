@@ -36,5 +36,5 @@ npm run lint
 ### How to run api server
 
 ```sh
-npx json-server db.json
+npm run server
 ```
