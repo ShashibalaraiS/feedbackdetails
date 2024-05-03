@@ -34,7 +34,7 @@ export default {
   },
   setup() {
     const items = ref([
-      { userId: 1, fullName: "shashibala", userName: 'shashibala@shashi' },
+      { userId: 1, fullName: "Shashibala", userName: 'shashibala@shashi' },
       { userId: 2, fullName: "Vivek", userName: 'viv@vivek' },
       { userId: 3, fullName: "Raman", userName: 'ram@ramamn' }
     ]);
