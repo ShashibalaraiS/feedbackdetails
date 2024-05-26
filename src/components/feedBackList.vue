@@ -1,19 +1,26 @@
 <template>
     <div class="p-6">
-        <h2 class="font-medium mb-4">User Feedback</h2>
-        <ul class="divide-y divide-gray-200" v-if="feedBackList">
-            <li class="py-3 cursor-pointer hover:bg-slate-100 px-3" v-for="item in feedBackList.feedBackList"
-                :key="item.id">
-                <div class="flex items-center space-x-3">
-                    <img class="w-10 h-10 rounded-full" src="https://via.placeholder.com/150" alt="User Avatar">
-                    <div>
-                        <p class="text-md font-semibold">Title</p>
-                        <p class="text-gray-500 text-sm">{{ item.title }}</p>
-                    </div>
-                </div>
-            </li>
-        </ul>
-        <div v-else>No data found</div>
+        <h2 class="font-medium mb-4">User Product List</h2>
+        <table class="min-w-full border-collapse border border-gray-200">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="border border-gray-300 px-4 py-2 text-left text-xs font-medium">Product </th>
+                    <th class="border border-gray-300 px-4 py-2 text-left text-xs font-medium">Date</th>
+
+                </tr>
+            </thead>
+            <tbody 
+             v-if="feedBackList.feedBackList != ''">
+                <tr v-for="(row, index) in feedBackList.feedBackList" :key="index" class="odd:bg-white even:bg-gray-50">
+                    <td class="border border-gray-300 px-4 py-2 text-xs font-medium">{{ row.title }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-xs font-medium">{{ row.dates  ?
+                        getCurrentFormattedDate(row.dates) : '-' }}</td>
+
+                </tr>
+            </tbody>
+            <span class="p-3 text-gray-500 w-1/2" v-else>No records found</span>
+        </table>
+      
     </div>
 </template>
 
@@ -35,7 +42,28 @@ export default {
             return userFeedBackList
         })
 
-        return { feedbackList, userStoreVal, feedBackList };
+        function getCurrentFormattedDate(dates1) {
+            console.log("date", dates1)
+            let date = new Date(dates1);
+           
+            // Define the month names
+            const monthNames = [
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            // Get the day of the month
+            const day = date.getDate();
+
+            // Get the month name
+            const month = monthNames[date.getMonth()];
+
+            // Get the year
+            const year = date.getFullYear();
+            return `${day} ${month} ${year}`;
+        }
+
+        return { feedbackList, userStoreVal, feedBackList, getCurrentFormattedDate };
     }
 };
 </script>

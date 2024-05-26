@@ -3,7 +3,7 @@
   <div class="flex bg-slate-300 p-5 min-h-screen">
     <div class="w-1/4 bg-white rounded-xl overflow-hidden">
       <div class="p-6">
-        <h2 class="text-2xl font-bold mb-4">User List</h2>
+        <h2 class="text-gray-500 font-semibold mb-4">User Name</h2>
         <!-- User List -->
         <ul class="divide-y divide-gray-200">
           <li @click="storeUserDetail(item)" class="py-3 cursor-pointer hover:bg-slate-100 px-3" v-for="item in items"
@@ -11,8 +11,8 @@
             <div class="flex items-center space-x-3">
               <img class="w-10 h-10 rounded-full" src="https://via.placeholder.com/150" alt="User Avatar">
               <div>
-                <p class="text-md font-semibold">{{ item.fullName }}</p>
-                <p class="text-gray-500 text-sm">{{ item.userName }}</p>
+                <p class="text-sm font-semibold">{{ item.fullName }}</p>
+                <p class="text-gray-500 text-xs">{{ item.userName }}</p>
               </div>
             </div>
           </li>
@@ -34,9 +34,9 @@ export default {
   },
   setup() {
     const items = ref([
-      { userId: 1, fullName: "Shashibala", userName: 'shashibala@shashi' },
-      { userId: 2, fullName: "Vivek", userName: 'viv@vivek' },
-      { userId: 3, fullName: "Raman", userName: 'ram@ramamn' }
+      { userId: 1, fullName: "Shashibala", userName: '@shashi' },
+      { userId: 2, fullName: "Vivek", userName: '@vivek' },
+      { userId: 3, fullName: "Raman", userName: '@raman' }
     ]);
     let selectedId = ref("")
     const showData = ref(false)
