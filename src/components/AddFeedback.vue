@@ -14,9 +14,9 @@
                     <div class="mb-4">
                         <label for="message" class="text-xs font-medium ">Private note </label>
                         <textarea v-model="feedback" id="message" name="message" rows="4"
-                            class="mt-1 p-3 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md border" @blur="validateMsg"
-                            ></textarea>
-                            <span v-if="errors" class="text-red-400 text-sm">{{ errors }}</span>
+                            class="mt-1 p-3 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md border"
+                            @blur="validateMsg"></textarea>
+                        <span v-if="errors" class="text-red-400 text-sm">{{ errors }}</span>
                     </div>
 
                     <button type="submit"
@@ -25,7 +25,7 @@
                     </button>
                 </form>
             </div>
-          
+
             <div v-if="userFlagStore.userflagShow">
                 <feedbackList></feedbackList>
             </div>
@@ -33,16 +33,15 @@
     </div>
 </template>  
 <script>
-import { ref, computed, reactive } from 'vue';
+import { ref, computed } from 'vue';
 import axios from 'axios';
 import { useUserStore, useUserFlagStore, useFeedbackList } from '@/stores/counter';
 import feedbackList from './feedBackList.vue'
-import Counter from './Counter.vue'
 import useApi from '../useApi';
 
 export default {
     components: {
-        feedbackList, Counter
+        feedbackList
     },
     setup() {
         const userStore = useUserStore()
@@ -52,10 +51,10 @@ export default {
         const errors = ref('');
         const submitFeedback = async () => {
             validateMsg();
-            if(feedback.value == ''){
+            if (feedback.value == '') {
                 return;
             }
-           
+
             try {
                 await axios.post('http://localhost:3000/posts', {
                     title: feedback.value,
@@ -70,14 +69,13 @@ export default {
                 console.error('Error submitting feedback:', error);
             }
         };
-        function validateMsg(){
-            console.log("error",feedback.value )
-      if (feedback.value =='') {
-        errors.value = 'Message is required.';
-      } else {
-        errors.value = null;
-      }
-    };
+        function validateMsg() {
+            if (feedback.value == '') {
+                errors.value = 'Message is required.';
+            } else {
+                errors.value = null;
+            }
+        };
 
         const userStoreVal = computed(() => {
             return userStore

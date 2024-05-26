@@ -1,6 +1,6 @@
 <template>
     <div class="p-6">
-        <h2 class="font-medium mb-4">User Product List</h2>
+        <h2 class="font-medium mb-4 text-gray-500">Product List</h2>
         <table class="min-w-full border-collapse border border-gray-200">
             <thead>
                 <tr class="bg-gray-200">
@@ -12,20 +12,20 @@
             <tbody 
              v-if="feedBackList.feedBackList != ''">
                 <tr v-for="(row, index) in feedBackList.feedBackList" :key="index" class="odd:bg-white even:bg-gray-50">
-                    <td class="border border-gray-300 px-4 py-2 text-xs font-medium">{{ row.title }}</td>
-                    <td class="border border-gray-300 px-4 py-2 text-xs font-medium">{{ row.dates  ?
+                    <td class="border border-gray-300 px-4 py-2 text-xs font-medium text-gray-500">{{ row.title }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-xs font-medium text-gray-500">{{ row.dates  ?
                         getCurrentFormattedDate(row.dates) : '-' }}</td>
 
                 </tr>
             </tbody>
-            <span class="p-3 text-gray-500 w-1/2" v-else>No records found</span>
+            <p class="p-3 text-gray-500" v-else>No records found</p>
         </table>
       
     </div>
 </template>
 
 <script>
-import { ref, onMounted, computed } from 'vue';
+import { ref,  computed } from 'vue';
 import axios from 'axios';
 import { useUserStore, useFeedbackList } from '@/stores/counter';
 
@@ -43,9 +43,7 @@ export default {
         })
 
         function getCurrentFormattedDate(dates1) {
-            console.log("date", dates1)
-            let date = new Date(dates1);
-           
+            let date = new Date(dates1);           
             // Define the month names
             const monthNames = [
                 "January", "February", "March", "April", "May", "June",
